@@ -8,17 +8,13 @@ def main():
     pygame.display.set_caption("Breakout")
     BLACK = (0, 0, 0)
     WHITE = (255, 255, 255)
+    RED = (255, 0, 0)
 
-    block = pygame.surface((50, 50))
-    ball = block.get_rect()
-    block.fill(BLACK)
+    block = pygame.Surface((50, 50))
+    rect = block.get_rect()
+    pygame.draw.circle(block, RED, (25, 25), 25, 0)
     speedx = 5
-    speedy = 5
-
-
-
-
-
+    speedy = 3
 
     while True:
         for event in pygame.event.get():
@@ -30,5 +26,11 @@ def main():
         rect.left += speedx
         if rect.top < 0 or rect.bottom > 500:
             speedy = -speedy
-        if 
+        elif rect.left < 0 or rect.right > 500:
+            speedx = -speedx
 
+        main_surface.blit(block, rect)
+        pygame.display.update()
+
+
+main()
