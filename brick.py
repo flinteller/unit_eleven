@@ -1,15 +1,21 @@
 import pygame
-import ball
-import breakout
-import paddle
 
 
 class Brick(pygame.sprite.Sprite):
 
-    def __init__(self, surface, height, width, color):
-        self.BRICK_HEIGHT = 8
+    def __init__(self, width, height, color):
+        # initialize sprite super class
 
+        # finish setting the class variables to the parameters
+        self.width = width
+        self.color = color
+        self.height = height
 
-    def draw_bricks(self, x_pos, y_pos):
-        pygame.draw.rect(self.main_surface, color, (x_pos, y_pos, self.BRICK_WIDTH, self.BRICK_HEIGHT), 0)
+        # Create a surface with the correct height and width
+        self.image = pygame.Surface((width, height))
 
+        # Get the rect coordinates
+        self.rect = self.image.get_rect()
+
+        # Fill the surface with the correct color
+        self.image.fill(color)
