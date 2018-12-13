@@ -4,7 +4,7 @@ class Ball(pygame.sprite.Sprite):
 
     def __init__(self, color, window_width, window_height, radius):
         # initialize sprite super class
-
+        super().__init__()
         # finish setting the class variables to the parameters
         self.color = color
         self.radius = radius

@@ -5,7 +5,6 @@ import ball
 import paddle
 
 
-
 def main():
     # Constants that will be used in the program
     APPLICATION_WIDTH = 400
@@ -37,20 +36,21 @@ def main():
     # Step 1: Use loops to draw the rows of bricks. The top row of bricks should be 70 pixels away from the top of
     # the screen (BRICK_Y_OFFSET)
 
-    my_ball = ball.Ball(RED, APPLICATION_WIDTH, APPLICATION_HEIGHT, RADIUS_OF_BALL)
-    main_window.blit(my_ball.image, my_ball.rect)
-    pygame.display.update()
+    x_pos = 0
+    y_pos = BRICK_Y_OFFSET
 
-    colors = [RED, ORANGE, YELLOW, GREEN, CYAN]
-    for color in colors:
-        brick_color = color
+    for x in range(2):
+        colors = [RED, ORANGE, YELLOW, GREEN, CYAN]
+        for thing in colors:
+            brick_color = thing
+            my_brick = brick.Brick(BRICK_WIDTH, BRICK_HEIGHT, brick_color)
+            my_brick.rect.y = y_pos
+            my_brick.rect.x = x_pos
+            main_window.blit(my_brick.image, my_brick.rect)
+            x_pos += (BRICK_SEP + BRICK_WIDTH)
+            y_pos += BRICK_HEIGHT + BRICK_Y_OFFSET
+            pygame.display.update()
 
-    my_brick = brick.Brick(BRICK_WIDTH, BRICK_HEIGHT, brick_color)
-    main_window.blit(my_brick.image, my_brick.rect)
-    pygame.display.update()
-
-    my_paddle = paddle.Paddle(main_window, BLACK, PADDLE_WIDTH, PADDLE_HEIGHT)
-    main_window.blit(my_paddle.image, my_paddle.rect)
 
     while True:
         for event in pygame.event.get():
@@ -58,13 +58,14 @@ def main():
                 pygame.quit()
                 sys.exit()
 
-        main_window.fill(WHITE)
-        pygame.display.update()
-        main_window.blit(my_ball.image, main_window.#surface)
-        pygame.display.update()
-        main_window.blit(my_brick.image, main_window.#surface)
-        pygame.display.update()
-        main_window.blit(my_paddle.image, main_window.#surface)
-        pygame.display.update()
+        # main_window.fill(WHITE)
+
+        # my_ball = ball.Ball(RED, APPLICATION_WIDTH, APPLICATION_HEIGHT, RADIUS_OF_BALL)
+        # main_window.blit(my_ball.image, my_ball.rect)
+
+        # my_paddle = paddle.Paddle(main_window, BLACK, PADDLE_WIDTH, PADDLE_HEIGHT)
+        # main_window.blit(my_paddle.image, my_paddle.rect)
+
+
 
 main()
