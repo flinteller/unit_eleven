@@ -39,33 +39,43 @@ def main():
     x_pos = 0
     y_pos = BRICK_Y_OFFSET
 
-    for x in range(2):
-        colors = [RED, ORANGE, YELLOW, GREEN, CYAN]
-        for thing in colors:
-            brick_color = thing
-            my_brick = brick.Brick(BRICK_WIDTH, BRICK_HEIGHT, brick_color)
-            my_brick.rect.y = y_pos
-            my_brick.rect.x = x_pos
-            main_window.blit(my_brick.image, my_brick.rect)
-            x_pos += (BRICK_SEP + BRICK_WIDTH)
-            y_pos += BRICK_HEIGHT + BRICK_Y_OFFSET
-            pygame.display.update()
 
+
+    colors = [RED, ORANGE, YELLOW, GREEN, CYAN]
+    for thing in colors:
+        brick_color = thing
+        my_brick = brick.Brick(BRICK_WIDTH, BRICK_HEIGHT, brick_color)
+        for y in range(2):
+            for z in range(10):
+                my_brick.rect.y = y_pos
+                my_brick.rect.x = x_pos
+                main_window.blit(my_brick.image, my_brick.rect)
+                x_pos += (BRICK_SEP + BRICK_WIDTH)
+            x_pos = 0
+            y_pos += BRICK_HEIGHT + BRICK_SEP
+
+    my_paddle = paddle.Paddle(main_window, BLACK, PADDLE_WIDTH, PADDLE_HEIGHT)
+    my_paddle.rect.x = APPLICATION_WIDTH / 2
+    my_paddle.rect.y = APPLICATION_HEIGHT - PADDLE_Y_OFFSET
+
+
+    # my_ball = ball.Ball(RED, APPLICATION_WIDTH, APPLICATION_HEIGHT, RADIUS_OF_BALL)
+    # my_ball.move()
 
     while True:
         for event in pygame.event.get():
             if event == QUIT:
                 pygame.quit()
                 sys.exit()
+            if event.type == MOUSEMOTION:
+                my_paddle.move(pygame.mouse.get_pos())
+        main_window.fill(WHITE)
 
-        # main_window.fill(WHITE)
-
-        # my_ball = ball.Ball(RED, APPLICATION_WIDTH, APPLICATION_HEIGHT, RADIUS_OF_BALL)
         # main_window.blit(my_ball.image, my_ball.rect)
 
-        # my_paddle = paddle.Paddle(main_window, BLACK, PADDLE_WIDTH, PADDLE_HEIGHT)
-        # main_window.blit(my_paddle.image, my_paddle.rect)
+        main_window.blit(my_paddle.image, my_paddle.rect)
 
+        pygame.display.update()
 
 
 main()
