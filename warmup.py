@@ -18,9 +18,11 @@ WHITE = (255, 255, 255)
 WIDTH = 25
 HEIGHT = 25
 
+group = pygame.sprite.Group()
 my_block = block.Block(main_window, WIDTH, HEIGHT, BLUE)
 new_block = block.Block(main_window, WIDTH, HEIGHT, GREEN)
-
+group.add(my_block)
+group.add(new_block)
 
 my_block.rect.x = 10
 my_block.rect.y = 10
@@ -34,10 +36,13 @@ while True:
             sys.exit()
 
     main_window.fill(WHITE)
-    my_block.move()
-    new_block.move()
-    main_window.blit(new_block.image, new_block.rect)
-    main_window.blit(my_block.image, my_block.rect)
+    for a_brick in group:
+        a_brick.move()
+        group.remove(a_brick)
+        a_brick.collide(group)
+        group.add(a_brick)
+        main_window.blit(a_brick.image, a_brick.rect)
+    
     pygame.display.update()
 
 
