@@ -23,3 +23,7 @@ class Paddle(pygame.sprite.Sprite):
 
     def move(self, position):
         self.rect.x = position[0]
+
+
+
+

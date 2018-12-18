@@ -19,3 +19,5 @@ class Brick(pygame.sprite.Sprite):
 
         # Fill the surface with the correct color
         self.image.fill(color)
+
+

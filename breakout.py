@@ -35,32 +35,32 @@ def main():
 
     # Step 1: Use loops to draw the rows of bricks. The top row of bricks should be 70 pixels away from the top of
     # the screen (BRICK_Y_OFFSET)
+    brick_group = pygame.sprite.Group()
+    paddle_group = pygame.sprite.Group()
 
     x_pos = 0
     y_pos = BRICK_Y_OFFSET
-
-
 
     colors = [RED, ORANGE, YELLOW, GREEN, CYAN]
     for thing in colors:
         brick_color = thing
         my_brick = brick.Brick(BRICK_WIDTH, BRICK_HEIGHT, brick_color)
+        brick_group.add(my_brick)
         for y in range(2):
             for z in range(10):
                 my_brick.rect.y = y_pos
                 my_brick.rect.x = x_pos
-                main_window.blit(my_brick.image, my_brick.rect)
                 x_pos += (BRICK_SEP + BRICK_WIDTH)
             x_pos = 0
             y_pos += BRICK_HEIGHT + BRICK_SEP
 
     my_paddle = paddle.Paddle(main_window, BLACK, PADDLE_WIDTH, PADDLE_HEIGHT)
+    paddle_group.add(my_paddle)
     my_paddle.rect.x = APPLICATION_WIDTH / 2
     my_paddle.rect.y = APPLICATION_HEIGHT - PADDLE_Y_OFFSET
 
-
-    # my_ball = ball.Ball(RED, APPLICATION_WIDTH, APPLICATION_HEIGHT, RADIUS_OF_BALL)
-    # my_ball.move()
+    my_ball = ball.Ball(RED, APPLICATION_WIDTH, APPLICATION_HEIGHT, RADIUS_OF_BALL)
+    my_ball.move()
 
     while True:
         for event in pygame.event.get():
@@ -69,11 +69,17 @@ def main():
                 sys.exit()
             if event.type == MOUSEMOTION:
                 my_paddle.move(pygame.mouse.get_pos())
+
         main_window.fill(WHITE)
+        for a_brick in brick_group:
+            my_ball.collide(brick_group)
+            main_window.blit(a_brick.image, a_brick.rect)
 
-        # main_window.blit(my_ball.image, my_ball.rect)
+        for one_brick in paddle_group:
+            my_ball.collide(paddle_group)
+            main_window.blit(one_brick.image, one_brick.rect)
 
-        main_window.blit(my_paddle.image, my_paddle.rect)
+        main_window.blit(my_ball.image, my_ball.rect)
 
         pygame.display.update()
 
