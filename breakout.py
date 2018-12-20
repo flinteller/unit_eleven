@@ -59,10 +59,11 @@ def main():
     my_paddle.rect.x = APPLICATION_WIDTH / 2
     my_paddle.rect.y = APPLICATION_HEIGHT - PADDLE_Y_OFFSET
 
-
     my_ball = ball.Ball(RED, APPLICATION_WIDTH, APPLICATION_HEIGHT, RADIUS_OF_BALL)
     my_ball.rect.x = 200
     my_ball.rect.y = 200
+
+
 
     while True:
         for event in pygame.event.get():
@@ -71,17 +72,27 @@ def main():
                 sys.exit()
             if event.type == MOUSEMOTION:
                 my_paddle.move(pygame.mouse.get_pos())
+            if brick_group.has() == False:
+                mouse_font = pygame.font.SysFont("Verdana", 32)
+                mouse_label = mouse_font.render(("You Win!!!"), 1, (0, 0, 0))
+                main_window.blit(mouse_label, (30, 30))
 
         main_window.fill(WHITE)
 
-        my_ball.move()
+
+
+        # Moves and blits ball
+        my_ball.move(NUM_TURNS)
         main_window.blit(my_ball.image, my_ball.rect)
 
+        # Blits each brick
         for a_brick in brick_group:
             main_window.blit(a_brick.image, a_brick.rect)
 
+        # Detetcts collision
         my_ball.collide(paddle_group, brick_group)
 
+        # Blits paddle
         main_window.blit(my_paddle.image, my_paddle.rect)
 
         pygame.display.update()
