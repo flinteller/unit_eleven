@@ -73,17 +73,30 @@ def main():
             if event.type == MOUSEMOTION:
                 my_paddle.move(pygame.mouse.get_pos())
             if brick_group.has() == False:
-                mouse_font = pygame.font.SysFont("Verdana", 32)
-                mouse_label = mouse_font.render(("You Win!!!"), 1, (0, 0, 0))
-                main_window.blit(mouse_label, (30, 30))
+                win = True
+            if NUM_TURNS == 0:
+                win = False
+
+        main_window.fill(WHITE)
+
+        if win == True:
+            mouse_font = pygame.font.SysFont("Verdana", 32)
+            mouse_label = mouse_font.render("You Win!!!", 1, (0, 0, 0))
+            main_window.blit(mouse_label, (30, 30))
+        if win == False:
+            mouse_font = pygame.font.SysFont("Verdana", 32)
+            mouse_label = mouse_font.render("Game Over", 1, (0, 0, 0))
+            main_window.blit(mouse_label, (30, 30))
 
         main_window.fill(WHITE)
 
 
-
         # Moves and blits ball
-        my_ball.move(NUM_TURNS)
+        NUM_TURNS = my_ball.move()
         main_window.blit(my_ball.image, my_ball.rect)
+
+        if my_ball.rect.bottom > my_ball.window_height:
+            NUM_TURNS -= 1
 
         # Blits each brick
         for a_brick in brick_group:
