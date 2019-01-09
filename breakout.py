@@ -72,27 +72,32 @@ def main():
                 sys.exit()
             if event.type == MOUSEMOTION:
                 my_paddle.move(pygame.mouse.get_pos())
-            if brick_group.has() == False:
-                win = True
-            if NUM_TURNS == 0:
-                win = False
+        if my_ball.rect.bottom > 585:
+            NUM_TURNS -= 1
+            my_ball.rect.x = 200
+            my_ball.rect.y = 200
 
         main_window.fill(WHITE)
 
-        if win == True:
+        if len(brick_group) == 0:
             mouse_font = pygame.font.SysFont("Verdana", 32)
             mouse_label = mouse_font.render("You Win!!!", 1, (0, 0, 0))
             main_window.blit(mouse_label, (30, 30))
-        if win == False:
+            pygame.display.update()
+            pygame.time.wait(3000)
+            break
+
+        if NUM_TURNS == 0:
             mouse_font = pygame.font.SysFont("Verdana", 32)
             mouse_label = mouse_font.render("Game Over", 1, (0, 0, 0))
             main_window.blit(mouse_label, (30, 30))
-
-        main_window.fill(WHITE)
+            pygame.display.update()
+            pygame.time.wait(3000)
+            break
 
 
         # Moves and blits ball
-        NUM_TURNS = my_ball.move()
+        my_ball.move()
         main_window.blit(my_ball.image, my_ball.rect)
 
         if my_ball.rect.bottom > my_ball.window_height:
