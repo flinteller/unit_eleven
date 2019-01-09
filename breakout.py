@@ -17,7 +17,7 @@ def main():
     BRICK_HEIGHT = 8
     PADDLE_WIDTH = 60
     PADDLE_HEIGHT = 10
-    RADIUS_OF_BALL = 10
+    RADIUS_OF_BALL = 95
     NUM_TURNS = 3
 
     # Sets up the colors
@@ -54,7 +54,7 @@ def main():
             x_pos = 0
             y_pos += BRICK_HEIGHT + BRICK_SEP
 
-    my_paddle = paddle.Paddle(main_window, BLACK, PADDLE_WIDTH, PADDLE_HEIGHT)
+    my_paddle = paddle.Paddle(main_window, WHITE, PADDLE_WIDTH, PADDLE_HEIGHT)
     paddle_group.add(my_paddle)
     my_paddle.rect.x = APPLICATION_WIDTH / 2
     my_paddle.rect.y = APPLICATION_HEIGHT - PADDLE_Y_OFFSET
@@ -62,7 +62,6 @@ def main():
     my_ball = ball.Ball(RED, APPLICATION_WIDTH, APPLICATION_HEIGHT, RADIUS_OF_BALL)
     my_ball.rect.x = 200
     my_ball.rect.y = 200
-
 
 
     while True:
@@ -77,24 +76,36 @@ def main():
             my_ball.rect.x = 200
             my_ball.rect.y = 200
 
-        main_window.fill(WHITE)
+        main_window.fill(BLACK)
+
+        mouse_font = pygame.font.SysFont("Verdana", 32)
+        mouse_label = mouse_font.render("Lives: " + str(NUM_TURNS), 1, (255, 255, 255))
+        main_window.blit(mouse_label, (30, 30))
+        pygame.display.update()
 
         if len(brick_group) == 0:
             mouse_font = pygame.font.SysFont("Verdana", 32)
-            mouse_label = mouse_font.render("You Win!!!", 1, (0, 0, 0))
-            main_window.blit(mouse_label, (30, 30))
+            mouse_label = mouse_font.render("You Win!!!", 1, (255, 255, 255))
+            main_window.blit(mouse_label, (135, 200))
             pygame.display.update()
-            pygame.time.wait(3000)
+
+        if len(brick_group) == 0:
+            pygame.time.wait(2000)
             break
+
+
+        if NUM_TURNS == 1 and my_ball.rect.bottom > 575:
+            mouse_font = pygame.font.SysFont("Verdana", 32)
+            mouse_label = mouse_font.render("Game Over", 1, (255, 255, 255))
+            main_window.blit(mouse_label, (135, 200))
+            pygame.display.update()
 
         if NUM_TURNS == 0:
-            mouse_font = pygame.font.SysFont("Verdana", 32)
-            mouse_label = mouse_font.render("Game Over", 1, (0, 0, 0))
-            main_window.blit(mouse_label, (30, 30))
-            pygame.display.update()
-            pygame.time.wait(3000)
+            pygame.time.wait(2000)
             break
 
+
+        pygame.font.get_fonts()
 
         # Moves and blits ball
         my_ball.move()
