@@ -21,8 +21,16 @@ class Paddle(pygame.sprite.Sprite):
         # Fill the surface with the correct color
         self.image.fill(color)
 
-    def move(self, position):
-        self.rect.x = position[0]
+    def move_left(self):
+        self.rect.x = self.rect.x - 8
+
+        if self.rect.left < 0:
+            self.rect.x = 1
+
+
+    def move_right(self):
+        self.rect.x = self.rect.x + 8
+
         if self.rect.right > 400:
             self.rect.x = 350
 

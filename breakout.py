@@ -17,7 +17,7 @@ def main():
     BRICK_HEIGHT = 8
     PADDLE_WIDTH = 60
     PADDLE_HEIGHT = 10
-    RADIUS_OF_BALL = 95
+    RADIUS_OF_BALL = 10
     NUM_TURNS = 3
 
     # Sets up the colors
@@ -31,7 +31,7 @@ def main():
 
     pygame.init()
     main_window = pygame.display.set_mode((APPLICATION_WIDTH, APPLICATION_HEIGHT), 32, 0)
-    pygame.display.set_caption("Breakout")
+    pygame.display.set_caption("AD Blocker")
 
     # Step 1: Use loops to draw the rows of bricks. The top row of bricks should be 70 pixels away from the top of
     # the screen (BRICK_Y_OFFSET)
@@ -69,9 +69,11 @@ def main():
             if event == QUIT:
                 pygame.quit()
                 sys.exit()
-            if event.type == MOUSEMOTION:
-                my_paddle.move(pygame.mouse.get_pos())
-        if my_ball.rect.bottom > 585:
+        if pygame.key.get_pressed()[K_LEFT]:
+            my_paddle.move_left()
+        if pygame.key.get_pressed()[K_RIGHT]:
+            my_paddle.move_right()
+        if my_ball.rect.bottom > 590:
             NUM_TURNS -= 1
             my_ball.rect.x = 200
             my_ball.rect.y = 200
@@ -93,8 +95,7 @@ def main():
             pygame.time.wait(2000)
             break
 
-
-        if NUM_TURNS == 1 and my_ball.rect.bottom > 575:
+        if NUM_TURNS == 1 and my_ball.rect.bottom > 585:
             mouse_font = pygame.font.SysFont("Verdana", 32)
             mouse_label = mouse_font.render("Game Over", 1, (255, 255, 255))
             main_window.blit(mouse_label, (135, 200))
@@ -103,9 +104,6 @@ def main():
         if NUM_TURNS == 0:
             pygame.time.wait(2000)
             break
-
-
-        pygame.font.get_fonts()
 
         # Moves and blits ball
         my_ball.move()
