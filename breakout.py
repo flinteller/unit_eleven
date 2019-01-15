@@ -21,11 +21,10 @@ def main():
     NUM_TURNS = 3
 
     # Sets up the colors
-    RED = (255, 0, 0)
-    ORANGE = (255, 165, 0)
-    YELLOW = (255, 255, 0)
-    GREEN =(0, 255, 0)
-    CYAN = (0, 255, 255)
+    BLUE = (30, 144, 255)
+    RED = (255, 48, 48)
+    YELLOW = (255, 215, 0)
+    GREEN =(0, 201, 87)
     BLACK = (0, 0, 0)
     WHITE = (255, 255, 255)
 
@@ -41,7 +40,7 @@ def main():
     x_pos = 0
     y_pos = BRICK_Y_OFFSET
 
-    colors = [RED, ORANGE, YELLOW, GREEN, CYAN]
+    colors = [BLUE, RED, YELLOW, BLUE, GREEN]
     for color in colors:
         for y in range(2):
             for z in range(10):

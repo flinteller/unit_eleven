@@ -12,17 +12,16 @@ class Ball(pygame.sprite.Sprite):
         self.radius = radius
         self.window_width = window_width
         self.window_height = window_height
-        self.speedx = 6
-        self.speedy = 8
+        self.speedx = 4
+        self.speedy = 6
 
         # Create a surface, get the rect coordinates, fill the surface with a white color (or whatever color the
         # background of your breakout game will be.
-        self.image = pygame.Surface((radius * 2, radius * 2))
-        self.image.fill((0, 0, 0))
+        self.image = pygame.image.load("google_symbol_small.png")
+
         self.rect = self.image.get_rect()
 
         # Add a circle to represent the ball to the surface just created.
-        pygame.draw.circle(self.image, color, (radius, radius), radius, 0)
 
     def move(self):
         self.rect.top += self.speedy
