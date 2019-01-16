@@ -77,16 +77,16 @@ def main():
             my_ball.rect.x = 200
             my_ball.rect.y = 200
 
-        main_window.fill(BLACK)
+        main_window.fill(WHITE)
 
         mouse_font = pygame.font.SysFont("Verdana", 32)
-        mouse_label = mouse_font.render("Lives: " + str(NUM_TURNS), 1, (255, 255, 255))
+        mouse_label = mouse_font.render("Lives: " + str(NUM_TURNS), 1, BLUE)
         main_window.blit(mouse_label, (30, 30))
         pygame.display.update()
 
         if len(brick_group) == 0:
             mouse_font = pygame.font.SysFont("Verdana", 32)
-            mouse_label = mouse_font.render("You Win!!!", 1, (255, 255, 255))
+            mouse_label = mouse_font.render("You Win!!!", 1, BLUE)
             main_window.blit(mouse_label, (135, 200))
             pygame.display.update()
 
@@ -96,7 +96,7 @@ def main():
 
         if NUM_TURNS == 1 and my_ball.rect.bottom > 585:
             mouse_font = pygame.font.SysFont("Verdana", 32)
-            mouse_label = mouse_font.render("Game Over", 1, (255, 255, 255))
+            mouse_label = mouse_font.render("Game Over", 1, RED)
             main_window.blit(mouse_label, (135, 200))
             pygame.display.update()
 
