@@ -24,6 +24,10 @@ class Ball(pygame.sprite.Sprite):
         # Add a circle to represent the ball to the surface just created.
 
     def move(self):
+        """
+        This makes the ball move and keeps it on the screen
+        :return:
+        """
         self.rect.top += self.speedy
         self.rect.left += self.speedx
         if self.rect.top < 0:
@@ -32,9 +36,26 @@ class Ball(pygame.sprite.Sprite):
             self.speedx = -self.speedx
 
     def collide(self, paddle_group, brick_group):
+        """
+        This detects collisions and plays a sound accordingly
+        :param paddle_group:
+        :param brick_group:
+        :return:
+        """
         if pygame.sprite.spritecollide(self, brick_group, True):
             self.speedx = self.speedx
             self.speedy = -self.speedy
+            pygame.mixer.init()
+            pygame.init()
+            sound = pygame.mixer.Sound("Bleep-sound.wav")
+            sound.play()
         if pygame.sprite.spritecollide(self, paddle_group, False):
             self.speedx = self.speedx
             self.speedy = -self.speedy
+            pygame.mixer.init()
+            pygame.init()
+            sound = pygame.mixer.Sound("Paddle_bounce_sound.wav")
+            sound.play()
+
+
+

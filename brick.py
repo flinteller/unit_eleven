@@ -4,6 +4,12 @@ import pygame
 class Brick(pygame.sprite.Sprite):
 
     def __init__(self, width, height, color):
+        """
+        crates a surface using params
+        :param width:
+        :param height:
+        :param color:
+        """
         # initialize sprite super class
         super().__init__()
         # finish setting the class variables to the parameters
